@@ -151,12 +151,17 @@ public class RRosActivity extends RosActivity {
         Publisherr publisher = new Publisherr();
         publisher.setDatas(desNum);
         //ACTIVITY
+        Log.d("0425",InetAddressFactory.newNonLoopback().getHostAddress()+"          "+getMasterUri());
         NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic(InetAddressFactory.newNonLoopback().getHostAddress());//GET HOST ADDRESS
         nodeConfiguration.setMasterUri(getMasterUri());//SET MASTER uri
 
         //Toast.makeText(RRosActivity.this,"execute PublishNode",Toast.LENGTH_SHORT).show();
         nodeMainExecutor.execute(publisher, nodeConfiguration);//publisher : the NodeMain to execute // nodeConfiguration is used to create Node
 
+
+        Listener listener = new Listener();
+        nodeConfiguration.setNodeName("listener");
+        nodeMainExecutor.execute(listener, nodeConfiguration);
     }
 
 

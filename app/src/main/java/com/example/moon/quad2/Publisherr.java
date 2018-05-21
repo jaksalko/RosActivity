@@ -10,8 +10,6 @@ import org.ros.node.ConnectedNode;
 import org.ros.node.Node;
 import org.ros.node.topic.Publisher;
 
-import java.util.ArrayList;
-import java.util.List;
 import std_msgs.Int32;
 
 public class Publisherr extends AbstractNodeMain {
