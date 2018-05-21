@@ -46,9 +46,6 @@ public class RRosActivity extends RosActivity {
         intent_voice.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
         intent_voice.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko_KR");
 
-        //PUBLISHER LIST
-        publisherList = new ArrayList<Publisherr>();
-
         //LISTENER ->> 음성인식
         RecognitionListener listener = new RecognitionListener() {
             @Override
@@ -151,15 +148,15 @@ public class RRosActivity extends RosActivity {
     // of a master to use or to start a master locally.
 
     //The user can easily use the selected ROS Hostname in the master chooser
-
+        Publisherr publisher = new Publisherr();
+        publisher.setDatas(desNum);
         //ACTIVITY
-        NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic(
-                InetAddressFactory.newNonLoopback().getHostAddress());//GET HOST ADDRESS
+        NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic(InetAddressFactory.newNonLoopback().getHostAddress());//GET HOST ADDRESS
         nodeConfiguration.setMasterUri(getMasterUri());//SET MASTER uri
-        for (Publisherr publisher : publisherList) {
-            Toast.makeText(RRosActivity.this,"execute exampleNode",Toast.LENGTH_SHORT).show();
-            nodeMainExecutor.execute(publisher, nodeConfiguration);//publisher : the NodeMain to execute // nodeConfiguration is used to create Node
-        }
+
+        //Toast.makeText(RRosActivity.this,"execute PublishNode",Toast.LENGTH_SHORT).show();
+        nodeMainExecutor.execute(publisher, nodeConfiguration);//publisher : the NodeMain to execute // nodeConfiguration is used to create Node
+
     }
 
 

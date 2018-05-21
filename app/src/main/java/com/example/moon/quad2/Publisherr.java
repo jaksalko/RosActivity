@@ -15,52 +15,30 @@ import java.util.List;
 import std_msgs.Int32;
 
 public class Publisherr extends AbstractNodeMain {
-    private String topic;
-    private Context app;
-    private String msg_type;
-    int waitTime = 100;
-    List<String> datas;
-    public Publisherr(Context c, String topic)
-    {
-        this.app = c;
-        this.topic = topic;
-    }
-    public void setWaitTime(String time) {
-        this.waitTime = Integer.parseInt(time);
-    }
-    public void setMsgType(String msg_type) {
-        this.msg_type = msg_type;
-    }
-    public void setDatas(List<String> dataList) {
-        this.datas = new ArrayList<String>();
-        this.datas.addAll(dataList);
-    }
-    private void chooseAndSendMessage(Publisher publisher) {
-        publisher.publish(createIntMsg(publisher));
-    }
-    public Int32 createIntMsg(Publisher publisher)
-    {
-        Int32 msg = (Int32) publisher.newMessage();
-        msg.setData(Integer.parseInt(datas.get(0)));
-        return msg;
-    }
 
+    int waitTime = 100;
+    int datas;
+
+    public void setDatas(int data) {
+        datas = data;}
 
     @Override
     public GraphName getDefaultNodeName(){
-        return GraphName.of("ExampleNode");
+        return GraphName.of("talker");
     }
     @Override
     public void onStart(final ConnectedNode connectedNode) {
-        Log.i("Publisher started",topic + " " + msg_type);
-        final Publisher publisher = connectedNode.newPublisher(this.topic,this.msg_type);
+        Log.i("Publisher started","talker" + " ");
+        final Publisher<std_msgs.Int32> publisher = connectedNode.newPublisher("talker", Int32._TYPE);
         // Define any publishers, subscribers, servers or clients..
 
         connectedNode.executeCancellableLoop(new CancellableLoop() {
             protected void loop() throws InterruptedException {
                 //compose and send off message
-                chooseAndSendMessage(publisher);
-                Thread.sleep(waitTime);
+                Int32 msg = (Int32) publisher.newMessage();
+                publisher.publish(msg);
+                msg.setData(datas);
+                Thread.sleep(1000);
             }
         });
     }
