@@ -10,6 +10,7 @@ import org.ros.node.ConnectedNode;
 import org.ros.node.Node;
 import org.ros.node.topic.Publisher;
 
+import std_msgs.String;
 import std_msgs.Int32;
 
 public class Publisherr extends AbstractNodeMain {
@@ -27,15 +28,17 @@ public class Publisherr extends AbstractNodeMain {
     @Override
     public void onStart(final ConnectedNode connectedNode) {
         Log.i("Publisher started","talker" + " ");
-        final Publisher<std_msgs.Int32> publisher = connectedNode.newPublisher("talker", Int32._TYPE);
+        final Publisher<Int32> publisher = connectedNode.newPublisher("talker", Int32._TYPE);
         // Define any publishers, subscribers, servers or clients..
 
         connectedNode.executeCancellableLoop(new CancellableLoop() {
             protected void loop() throws InterruptedException {
                 //compose and send off message
                 Int32 msg = (Int32) publisher.newMessage();
-                publisher.publish(msg);
+
                 msg.setData(datas);
+                Log.d("loop msg",msg.toString());
+                publisher.publish(msg);
                 Thread.sleep(1000);
             }
         });

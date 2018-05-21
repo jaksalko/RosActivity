@@ -27,7 +27,7 @@ public class RRosActivity extends RosActivity {
 
     Intent intent_voice;
     SpeechRecognizer mRecognizer;
-    int desNum = 500 ;
+    int desNum = 0 ;
 
     protected RRosActivity() {
         super("Example", "Example");
