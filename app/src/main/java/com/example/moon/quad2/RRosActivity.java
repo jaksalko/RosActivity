@@ -24,6 +24,7 @@ public class RRosActivity extends RosActivity {
 
     public static List<Publisherr> publisherList;
 
+    Publisherr publisher = new Publisherr();
 
     Intent intent_voice;
     SpeechRecognizer mRecognizer;
@@ -135,7 +136,7 @@ public class RRosActivity extends RosActivity {
             @Override
             public void onClick(View v) {
                 //desNum(목표위치 idx)를 전송
-
+                publisher.setDatas(desNum);
             }
         });
 
@@ -148,8 +149,7 @@ public class RRosActivity extends RosActivity {
     // of a master to use or to start a master locally.
 
     //The user can easily use the selected ROS Hostname in the master chooser
-        Publisherr publisher = new Publisherr();
-        publisher.setDatas(desNum);
+
         //ACTIVITY
         Log.d("0425",InetAddressFactory.newNonLoopback().getHostAddress()+"          "+getMasterUri());
         NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic(InetAddressFactory.newNonLoopback().getHostAddress());//GET HOST ADDRESS
