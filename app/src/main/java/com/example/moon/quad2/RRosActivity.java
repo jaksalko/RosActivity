@@ -66,13 +66,19 @@ public class RRosActivity extends RosActivity {
                 String[] rs = new String[mResult.size()];
                 mResult.toArray(rs);
                 text.setText("" + rs[0]);                                       //음성인식 저장
-                String[] destination = {"과학관", "전자관", "학생회관", "운동장"};//목표 위치 배열
+                String[] destination = {"화전역" ,"뷁쉛","뷁쉛", "과학관", "뷁쉛","뷁쉛","전자관","착륙"};//목표 위치 배열//1234
 
-                for (int i = 0; i < 4; i++) {//음성인식과 목표위치 비교
+                for (int i = 0; i < 8; i++) {//음성인식과 목표위치 비교
                     Log.d("tag",rs[0] + destination[i]+"++++++++++++++++++++++++++++++++++++++++++=");
                     if (destination[i].equals(rs[0])) {
                         Log.d("tag",rs[0] + destination[i]+"++++++++++++++++++++++++++++++++++++++++++=");
-                        Toast.makeText(RRosActivity.this, rs[0] + "(으)로 안내를 시작합니다.", Toast.LENGTH_SHORT).show();
+                        if(i<7)
+                        {
+                            Toast.makeText(RRosActivity.this, rs[0] + "(으)로 안내를 시작합니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        if(i == 7)
+                            Toast.makeText(RRosActivity.this, "착륙합니다", Toast.LENGTH_SHORT).show();
+
                         success_count = 1;
                         desNum = i;
                     }

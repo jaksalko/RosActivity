@@ -15,6 +15,7 @@ import std_msgs.Int32;
 
 public class Publisherr extends AbstractNodeMain {
 
+    int current_state = 0;
     int waitTime = 100;
     int datas;
 
@@ -35,11 +36,14 @@ public class Publisherr extends AbstractNodeMain {
             protected void loop() throws InterruptedException {
                 //compose and send off message
                 Int32 msg = (Int32) publisher.newMessage();
-
-                msg.setData(datas);
+                if(current_state < datas)
+                    current_state++;
+                else if(current_state > datas)
+                    current_state--;
+                msg.setData(current_state);
                 Log.d("loop msg",msg.toString());
                 publisher.publish(msg);
-                Thread.sleep(1000);
+                Thread.sleep(5000);
             }
         });
     }
