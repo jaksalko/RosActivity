@@ -66,7 +66,8 @@ public class RRosActivity extends RosActivity {
                 String[] rs = new String[mResult.size()];
                 mResult.toArray(rs);
                 text.setText("" + rs[0]);                                       //음성인식 저장
-                String[] destination = {"화전역" ,"뷁쉛","뷁쉛", "과학관", "뷁쉛","뷁쉛","전자관","착륙"};//목표 위치 배열//1234
+                String[] destination = {"화전역" ,"뷁쉛","뷁쉛", "과학관", "뷁쉛","뷁쉛","전자관","착륙"};//목표 위치 배열 화전역(0) -> 과학관(3) -> 전자관(6) -> 착륙(7)
+                                                                                                    //나머지 배열 idx는 스팟값으로 사용하지 않는다
 
                 for (int i = 0; i < 8; i++) {//음성인식과 목표위치 비교
                     Log.d("tag",rs[0] + destination[i]+"++++++++++++++++++++++++++++++++++++++++++=");

@@ -15,7 +15,7 @@ import std_msgs.Int32;
 
 public class Publisherr extends AbstractNodeMain {
 
-    int current_state = 0;
+    int current_state = 0;//목표 위치로 가는 동안 지나가는 spot을 저장
     int waitTime = 100;
     int datas;
 
@@ -36,14 +36,14 @@ public class Publisherr extends AbstractNodeMain {
             protected void loop() throws InterruptedException {
                 //compose and send off message
                 Int32 msg = (Int32) publisher.newMessage();
-                if(current_state < datas)
+                if(current_state < datas)//목표위치에 가지못했다면 current_State 를 ++ 해서 다음 spot으로 이동
                     current_state++;
                 else if(current_state > datas)
                     current_state--;
-                msg.setData(current_state);
+                msg.setData(current_state); // spot 으로 이동
                 Log.d("loop msg",msg.toString());
                 publisher.publish(msg);
-                Thread.sleep(5000);
+                Thread.sleep(5000); // 전송 delay는 5초
             }
         });
     }
